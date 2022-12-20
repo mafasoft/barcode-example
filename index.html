@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="dist/quagga.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: document.querySelector('#here')
+                },
+                decoder: {
+                    readers: ["ean_reader"]
+                }
+            }, function (err) {
+                if (err) {
+                    console.log(err);
+                    return
+                }
+
+                Quagga.onProcessed(data => { if (data && data.codeResult) { console.log(data); } })
+                console.log("Initialization finished. Ready to start");
+                Quagga.start();
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <div id="here">Change me</div>
+</body>
+
+</html>
